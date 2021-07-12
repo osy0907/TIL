@@ -82,7 +82,8 @@ export default App;
 ```
 
 ```js
- import { Component } from 'react';
+import { Component } from 'react';
+
 class Subject extends Component {
 
     render() {
