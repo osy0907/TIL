@@ -29,6 +29,9 @@
 
 `Props`를 사용했는데도 `State`를 사용하는 이유는, 사용하는 쪽과 구현하는 쪽을 철저하게 분리시켜서 양쪽의 편의성을 각자 도모하는 것에 있다.
 
+데이터를 수정하는 로직이나 사용자가 입력한 변경된 데이터를 저장해야 하는 경우, 읽기전용인 Properties(props)에서 변경 데이터 저장은 불가능.
+이에 모든 컴포넌트는 state를 가지고 있으며, state에서는 변경된 데이터를 관리할 수 있다. 사용자와 컴포넌트 또는 컴포넌트와 컴포넌트 사이에 상호작용을 하며 값을 바꿀 수 있다.
+
 **_외부에서 알 필요가 없는 정보를 철저하게 은닉하는 것, 철저하게 숨기는 것이 좋은 사용성을 만드는 핵심._** _(굳이 비유를 하자면 전선이 삐져나온 핸드폰이 사용성이 좋을 거라는 생각은 안든다.)_
 
 ![img.png](image/props_state.png)
@@ -36,5 +39,73 @@
 _**사용자 입장에서 알아야 할 것만 알면 된다.**_
 
 
+### State and Component
 
- 
+- React에서 관리하는 모든 데이터는 부모컴포넌트 -> 자식컴포넌트 이동
+- 부모, 자식 컴포넌트는 서로 state에 영향을 끼치지 않는다.
+- 각 컴포넌트는 인스턴스화 될 때 각기 독립적으로 관리가 된다.
+
+State는 생성자 호출 시 초기화 시킬 수 있고, setState() 메소드를 통해 변경할 수 있다.
+
+```js
+import './App.css';
+import TOC from './components/TOC';
+import Subject from './components/Subject';
+import Content from './components/Content';
+import { Component } from 'react';
+
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {  // App이 내부적으로 사용할 상태는 state를 사용한다.
+      mode:'read',
+      subject:{title:"WEB", sub:"World wide web!"},
+      welcome:{title:'Welcome', desc:'Hello, React!'}
+    }
+  }
+  render() {
+    return (
+      <div className="App">
+        <Subject 
+          title={this.state.subject.title}
+          sub={this.state.subject.sub}
+          onChangePage={function(){
+            this.setState({mode:'welcome'})
+          }.bind(this)}>
+        </Subject>
+      </div>
+    )
+  }
+}
+// State를 쓰는 것은 파일의 뚜껑을 열고 데이터가 바뀌엇다고 로직을 바꾸는 것을 하지않게 해준다.
+export default App;
+```
+
+```js
+ import { Component } from 'react';
+class Subject extends Component {
+
+    render() {
+      return (
+        <header>
+            <h1><a href="/" onClick={function(e){
+                e.preventDefault();
+                this.props.onChangePage();
+            }.bind(this)}>{this.props.title}</a></h1>
+            {this.props.sub}
+        </header>  
+      );
+    }
+  }
+
+export default Subject;
+```
+### State 활용
+
+컴포넌트 내 props, state로 데이터 관리.
+
+state에서 관리하면 좋은 데이터의 종류
+- 사용자가 입력한 데이터(textbox, form field)
+- 현재 또는 선택된 아이템(현재 탭, 테이블 내 선택된 행)
+- 서버로 부터 받는 데이터(객체 리스트)
+- 동적인 상태(모델을 열기 및 닫기, 사이드바 열기 및 닫기)
