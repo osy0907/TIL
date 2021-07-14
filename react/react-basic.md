@@ -115,3 +115,14 @@ state에서 관리하면 좋은 데이터의 종류
 ### Props vs State
 
 ![img.png](image/props_vs_state.png)
+
+### WITHOUT REDUX / WITH REDUX
+
+![img.png](image/WITHOUT_REDUX_WITH_REDUX.png)
+
+WITHOUT REDUX
+- 상위가 하위 컴포넌트를 명령할 때는 props를 통해서,
+- 하위가 상위 컴포넌트를 명령할 때는 이벤트를 활용.
+
+WITH REDUX
+- 데이터를 각각의 컴포넌트에 분산해서 보관하는게 아니라 하나의 데이터 저장소가 있어서 데이터 저장소의 값이 바뀌면 관련된 모든 컴포넌트가 알아서 바뀐다.  
