@@ -1,6 +1,6 @@
 # react-basic
 
-![img.png](image/img.png)
+![img.png](image/react_logo.png)
 
 - `react` : 페이스북의 UI를 더 잘 만들기 위해 페이스북에서 만든 자바스크립트 UI 라이브러리
 
@@ -111,3 +111,7 @@ state에서 관리하면 좋은 데이터의 종류
 - 현재 또는 선택된 아이템(현재 탭, 테이블 내 선택된 행)
 - 서버로 부터 받는 데이터(객체 리스트)
 - 동적인 상태(모델을 열기 및 닫기, 사이드바 열기 및 닫기)
+
+### Props vs State
+
+![img.png](image/props_vs_state.png)
