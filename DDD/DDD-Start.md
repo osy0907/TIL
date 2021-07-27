@@ -125,6 +125,7 @@ DIP와 아키텍처
 ![img.png](image/architecture-level-dip.png)
 
 ![img.png](image/dip-adjust-structure.png)
+
 _인프라스트럭처에 위치한 클래스가 도메인이나 응용 영역에 정의한 인터페이스를 상속받아 구현하는 구조가 되므로 도메인과 응용 영역에 대한 영향을 주지 않거나 최소화 하면서 구현 기술을 변경하는 것이 가능하다._
 
 ### 도메인 영역의 주요 구성요소
