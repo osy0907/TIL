@@ -63,3 +63,13 @@ Nonsense : 앞으로 코드가 사라질 가망은 전혀 없다! 왜? 코드는
 ### 깨끗한 코드라는 예술 ? ( The Art of Clean Code? )
 
 깨끗한 코드를 작성하려면 훈련이 필요합니다. 우리는 "코드 센스"를 얻기 위해 열심히 노력해야 합니다.
+
+### 깨끗한 코드란 ? ( What Is Clean Code? )
+
+- 테스트 없는 코드는 깨끗하지 않습니다.
+- 깨끗한 코드는 항상 주의깊게 신경쓰는 누군가가 작성한 것처럼 보입니다.
+- **No duplication, one thing, expressiveness, tiny abstractions**.
+- 예상한 대로 작동합니다. 명확하고 간단하며 설득력이 있습니다.
+
+## Schools of Thought
+
