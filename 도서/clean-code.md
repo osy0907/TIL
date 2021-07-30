@@ -73,3 +73,20 @@ Nonsense : 앞으로 코드가 사라질 가망은 전혀 없다! 왜? 코드는
 
 ## Schools of Thought
 
+## We Are Authors
+
+- *@author* 필드는 우리가 누구인지 알려줍니다. 우리는 저자다.
+- 새 코드를 작성하려면 이전 코드를 읽어야 합니다. 이전 코드가 읽기 쉬우면 새로운 코드도 작성하기 쉬워집니다.
+- 코드 읽기와 쓰기의 비율은 10:1입니다.
+
+## The Boy Scout Rule
+
+**Leave the campground cleaner than you found it**.
+
+## 1장을 끝으로..
+
+SRP, OCP, DIP 등 다양한 설계 원칙을 공부해야 한다. 설레인다.
+
+# <a name="meaningful-names">2. Meaningful Names</a>
+
+
