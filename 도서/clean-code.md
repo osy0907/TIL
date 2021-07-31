@@ -89,4 +89,55 @@ SRP, OCP, DIP 등 다양한 설계 원칙을 공부해야 한다. 설레인다.
 
 # <a name="meaningful-names">2. Meaningful Names</a>
 
+## Introduction
 
+Names are everywhere in software: variables, functions, args, classes, packages, files...
+
+## 의도를 분명히 밝혀라 ( Use Intention-Revealing Names )
+
+이름은 모든 중요한 질문에 답해야 한다.
+- 그것이 존재하는 이유가 무엇인지?
+- 그것이 무엇을 하는지?
+- 어떻게 사용되는지?
+
+
+다음과 같이 사용하지 마십시오.
+```java
+int d; // elapsed time in days
+```
+그 대신 측정 대상과 단위를 지정하는 이름을 사용하십시오.
+```java
+int elapsedTimeInDays;
+```
+의도를 나타내는 이름을 선택하면 코드를 훨씬 더 쉽게 이해하고 변경할 수 있습니다. 이것은 다른 사람과 미래의 자신에게 도움이 됩니다. 이 코드의 목적은 무엇입니까?
+
+From this:
+```java
+public List<int[]> getThem() {
+	List<int[]> list1 = new ArrayList<int[]>();
+	for (int[] x : theList)
+		if (x[0] == 4)
+			list1.add(x);
+	return list1;
+}
+```
+We can improve it only with revealing naming:
+```java
+public List<int[]> getFlaggedCells() {
+	List<int[]> flaggedCells = new ArrayList<int[]>();
+	for (int[] cell : gameBoard)
+		if (cell[STATUS_VALUE] == FLAGGED)
+			flaggedCells.add(cell);
+	return flaggedCells;
+}
+```
+And it is still better with a Cell class:
+```java
+public List<Cell> getFlaggedCells() {
+	List<Cell> flaggedCells = new ArrayList<Cell>();
+	for (Cell cell : gameBoard)
+		if (cell.isFlagged())
+			flaggedCells.add(cell);
+	return flaggedCells;
+}
+```
