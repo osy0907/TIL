@@ -141,3 +141,31 @@ public List<Cell> getFlaggedCells() {
 	return flaggedCells;
 }
 ```
+
+## 그릇된 정보를 피하라 ( Avoid Disinformation )
+
+- 여러 계정을 그룹으로 묶을 때, 실제 List가 아니라면, accountList라 명명하지 않는다.
+프로그래머에게 List라는 단어는 특수한 의미다. 그러므로 accountGroup, bunchOfAccounts, 아니면 단순히 Accounts라 명명한다.
+- *XYZFooBarClassForBlabla* 및 *XYZFooBarClassForBlablable*과 매우 유사한 이름 사용에 주의하십시오.
+- 소문자 *l*(1처럼 보임)과 대문자 *O*(0처럼 보임)를 사용하는 것도 도움이 되지 않습니다.
+
+## 의미 있게 구분하라 ( Make Meaningful Distinctions )
+
+숫자 시리즈 이름을 사용하지 마십시오: a1, a2, ... aN
+
+컴파일러를 통과할지라도 연속된 숫자를 덧붙이거나 불용어(noise word)를 추가하는 방식은 적절하지 못하다. 이름이 달라야 한다면 의미도 달라져야 한다.
+
+```java
+public static void copyChars(char a1[], char a2[]) {
+	for (int i = 0; i < a1.length; i++) {
+		a2[i] = a1[i];
+	}
+}
+```
+
+**source**와 **destination**을 인수 이름으로 사용하면 훨씬 더 좋습니다.
+노이즈 단어 피하기(Info, Data, a, an, the, variable, table, String):
+- ProductInfo와 ProductData는 거의 동일합니다.
+- nameString이 name보다 나은가요? 아니요.
+  방법에 대해서도 마찬가지입니다.
+  프로그래머는 어느함수를 호출해야 할까? getActiveAccount() getActiveAccounts() getActiveAccountInfo()
