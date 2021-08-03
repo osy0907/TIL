@@ -169,3 +169,19 @@ public static void copyChars(char a1[], char a2[]) {
 - nameString이 name보다 나은가요? 아니요.
   방법에 대해서도 마찬가지입니다.
   프로그래머는 어느함수를 호출해야 할까? getActiveAccount() getActiveAccounts() getActiveAccountInfo()
+
+## 발음하기 쉬운 이름을 사용하라 ( Use Pronounceable Names )
+
+발음하기 어려운 이름은 토론하기도 어렵다. 바보처럼 들리기 십상이다.
+```java
+// generation date, year, months, day, hour, minute, and second
+class DtaRcrd102 {
+	private Date genymdhms;
+	/* ... */
+}
+// better:
+class Customer {
+	private Date generationTimestamp;
+	/* ... */
+}
+```
