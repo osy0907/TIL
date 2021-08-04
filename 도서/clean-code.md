@@ -173,6 +173,7 @@ public static void copyChars(char a1[], char a2[]) {
 ## 발음하기 쉬운 이름을 사용하라 ( Use Pronounceable Names )
 
 발음하기 어려운 이름은 토론하기도 어렵다. 바보처럼 들리기 십상이다.
+
 ```java
 // generation date, year, months, day, hour, minute, and second
 class DtaRcrd102 {
@@ -185,3 +186,28 @@ class Customer {
 	/* ... */
 }
 ```
+
+## 검색하기 쉬운 이름을 사용하라 ( Use Searchable Names )
+
+단일 문자 이름과 숫자 상수는 텍스트 본문에서 찾기가 쉽지 않습니다.
+
+```java
+for (int j=0; j<34; j++) {
+	s += (t[j]*4)/5;
+}
+```
+
+검색 가능한 이름이 있을 때 더 좋습니다.
+
+```java
+int realDaysPerIdealDay = 4;
+const int WORK_DAYS_PER_WEEK = 5;
+int sum = 0;
+for (int j=0; j < NUMBER_OF_TASKS; j++) {
+	int realTaskDays = taskEstimate[j] * realDaysPerIdealDay;
+	int realTaskWeeks = (realdays / WORK_DAYS_PER_WEEK);
+	sum += realTaskWeeks;
+}
+```
+
+
