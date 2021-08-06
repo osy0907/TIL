@@ -229,3 +229,31 @@ for (int j=0; j < NUMBER_OF_TASKS; j++) {
 `this`가 `that`을 의미한다는 것을 *기억할 수* 있다고 해서 코드를 그런 식으로 작성해야 한다는 의미는 아닙니다.
 
 똑똑한 프로그래머와 전문가 프로그래머 사이에서 나타나는 차이점은 전문가 프로그래머는 **명료함이 최고**라는 사실을 이해합니다. 전문가 프로그래머는 자신의 능력을 좋은 방향으로 사용해 남들이 이해하는 코드를 작성합니다.
+
+## Class Names
+
+클래스 이름은 동사가 아닌 **명사**여야 합니다. Manager, Processor, Data, or Info와 같은 단어를 피하십시오.
+좋은 이름은 Customer, WikiPage, Account, AddressParser일 수 있습니다.
+
+## Method Names
+
+메소드에는 postPayment, deletePage, save...와 같은 동사 또는 동사 구 이름이 있어야 합니다.
+접근자 (Accessor), 변경자 (Mutator), 조건자 (Predicate)는 javabean 표준에 따라 값 앞에 get, set, is를 붙입니다.
+
+```java
+String name = employee.getName();
+customer.setName("oh");
+if (payCheck.isPosted())...
+```
+
+생성자가 오버로드되면 인수를 설명하는 이름으로 정적 팩토리 메서드를 사용합니다.
+
+```java
+Complex fulcrumPoint = Complex.FromRealNumber(23.0);
+```
+
+아래보다 위가 낫습니다.
+
+```java
+Complex fulcrumPoint = new Complex(23.0);
+```
