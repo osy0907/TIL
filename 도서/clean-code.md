@@ -257,3 +257,20 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 ```java
 Complex fulcrumPoint = new Complex(23.0);
 ```
+
+## 기발한 이름은 피하라 ( Don’t Be Cute )
+
+속어를 사용하지 마십시오!: kill() 대신 whack() 이라 부르거나 Abort() 대신 eatMyShort()라고 부르는 것.
+
+**의도를 분명하고 솔직하게 표현하라.**
+
+## 한 개념에 한 단어를 사용하라 ( Pick One Word per Concept )
+
+- 추상적인 개념 하나에 단어 하나를 선택해 이를 고수한다.
+- fetch, retrieve, get, etc 중에서 **get()** 을 선택하는 경우 항상(일관되게) 사용하십시오.
+
+## 말장난을 하지 마라 ( Don’t Pun )
+
+한 단어를 두 가지 목적으로 사용하지 마십시오. 다른 개념에 같은 단어를 사용한다면 그것은 말장난에 불과합니다.
+
+**Make your code as easy as possible to understand.**
