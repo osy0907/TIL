@@ -341,3 +341,76 @@ Complex fulcrumPoint = new Complex(23.0);
 - 예시로 ```getHtml()```은 추상화 수준히 아주 높습니다. 반면, ```String pagePathName = PathParser.render(pagepath);```는 추상화 수준이 중간입니다. 그리고 ```.append("/n")```와 같은 코드는 추상화 수준이 아주 낮습니다.
 
 한 함수 내에 추상화 수준을 섞으면 코드를 읽는 사람이 헷갈립니다. 특정 표현이 근본 개념인지 아니면 세부사항인지 구분하기 어려운 탓입니다. 하지만 문제는 이 정도로 그치지 않습니다. 근본 개념과 세부사항을 뒤섞기 시작하면, 깨어진 창문처럼 사람들이 함수에 세부사항을 점점 더 추가하게 됩니다.
+
+## 위에서 아래로 코드 읽기: 내려가기 규칙 ( Reading Code from Top to Bottom: The Stepdown Rule )
+
+코드는 위에서 아래로 이야기처럼 읽혀야 좋습니다. 한 함수 다음에는 추상화 수준이 한 단계 낮은 함수가 옵니다. 즉, 위에서 아래로 프로개름을 읽으면 함수 추상화 수준이 한 번에 한 단계씩 낮아집니다. 이것을 내려가기 규칙이라 부릅니다.
+하지만 추상화 수준이 하나인 함수를 구현하기란 쉽지 않습니다. 핵심은 짧으면서도 '한 가지'만 하는 함수입니다.
+위에서 아래로 문단을 읽어내려 가듯이 코드를 구현하면 추상화 수준을 일관되게 유지하기가 쉬워집니다.
+
+
+## Switch 문 ( Switch Statements )
+
+Switch 문은 항상 N개의 작업을 수행합니다.
+불행하게도 완전히 피할 방법은 없습니다. 하지만 각 switch 문을 저차원 클래스에 숨기고 절대로 반복하지 않는 방법이 있습니다. 다형성(polymorphism)을 이용합니다.
+
+```java
+public Money calculatePay(Employee e) throws InvalidEmployeeType {
+    switch (e.type) {
+        case COMMISSIONED:
+            return caclculateCommissionedPay(e);
+        case HOURLY:
+            return calculateHourlyPay(e);
+        case SALARIED:
+            return calculateSalariedPay(e);
+        default:
+            throw new InvalidEmployeeType(e.type);
+    }
+}
+```
+
+위 함수에는 몇 가지 문제가 있습니다.
+1. 함수가 길다.
+2. '한 가지' 작업만 수행하지 않는다.
+3. SRP를 위반한다. 코드를 변경할 이유가 여럿이기 때문이다.
+4. OCP를 위반한다. 새 직원 유형을 추가할 때마다 코드를 변경하기 때문이다.
+
+```java
+public abstract class Employee {
+    public static boolean isPayday();
+
+    public static Money calculatePay();
+
+    public static void deliverPay(Money pay);
+}
+
+```
+
+```java
+public interface EmployeeFactory {
+    public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType;
+}
+
+public class EmployeeFactoryImpl implements EmployeeFactory {
+    public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType {
+        switch (r.type) {
+            case COMMISSIONED:
+                return new CommissionedEmployee(r);
+            case HOURLY:
+                return new HourlyEmployee(r);
+            case SALARIED:
+                return new SalariedEmployee(r);
+            default:
+                throw new InvalidEmployeeType(r.type);
+        }
+    }
+}
+```
+
+- switch 문을 Abstract Factory에 꽁꽁 숨겨서 아무에게도 보여주지 않습니다.
+- Factory는 Switch 문을 사용해 적절한 Employee 파생 클래스의 인스턴스를 생성합니다.
+- calculatePay(), isPayday(), deliverPay() 등과 같은 함수는 Employee 인터페이스를 거쳐 호출 됩니다.
+- 그러면 다형성으로 인해 실제 파생 클래스의 함수가 실행됩니다.
+
+이렇게 쓰이는 swich 문을 단 한 번만 참아줍니다. 대신 조건으로 다형적 객체를 생성하는 코드 안에서 입니다.
+이렇게 상속 관계로 숨긴 후에는 절대로 다른 코드에 노출하지 않습니다.
