@@ -429,3 +429,25 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
 다음은 1개(단항)고, 다음은 2개(이항)입니다. 3개(삼항)는 가능한 피하는 편이 좋습니다. 4개 이상(다항)은 특별한 이유가 필요합니다. 특별한 이유가 있어도 사용하면 안됩니다.
 
 테스트 관점에서 보면 인수는 더 어렵습니다. 갖가지 인수 조합으로 함수를 검증하는 테스트 케이스를 작성한다고 상상해보십시오.
+
+## 많이 쓰는 단항 형식 ( Common Monadic Forms )
+
+- 하나는 인수에 질문을 던지는 경우.
+
+```java
+boolean fileExists("MyFile")
+```
+
+- 인수를 뭔가로 변환해 결과를 반환하는 경우.
+
+```java
+InputStream fileOpen("MyFile"); // string 형의 파일 이름을 InputStream 으로 변환합니다.
+```ㄴ
+
+  
+## 플래그 인수 ( Flag Arguments )
+
+플래그 인수(true|false)는 보기 흉합니다. 해당 함수는 참이면 한 가지 작업을 수행하고 거짓이면 다른 작업을 수행합니다.
+함수를 둘로 나눕니다.
+*render(boolean isSuite) => renderForSuite() , renderForSingleTest()*
+
