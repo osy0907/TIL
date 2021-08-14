@@ -442,7 +442,7 @@ boolean fileExists("MyFile")
 
 ```java
 InputStream fileOpen("MyFile"); // string 형의 파일 이름을 InputStream 으로 변환합니다.
-```ㄴ
+```
 
   
 ## 플래그 인수 ( Flag Arguments )
