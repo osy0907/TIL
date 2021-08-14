@@ -451,3 +451,17 @@ InputStream fileOpen("MyFile"); // string 형의 파일 이름을 InputStream �
 함수를 둘로 나눕니다.
 *render(boolean isSuite) => renderForSuite() , renderForSingleTest()*
 
+## 이항 함수 ( Dyadic Functions )
+
+인수가 2개인 함수는 인수가 1개인 함수보다 이해하기 어렵습니다.
+
+`writeField(name)` better than `writeField(outputStream, name)`
+
+어떻게 단항함수로 바꿀까요? writeField 메서드를 outputStream 클래스 구성원으로 만들어 outputStream, writeField(name)으로 호출합니다. 아니면 outputStream 을 현재 클래스 구성원 변수로 만들어 인수로 넘기지 않습니다.
+아니면 FieldWriter라는 새 클래스를 만들어 구성자에 outputStream 을 받고 write 메서드를 구현합니다.
+
+## 삼항 함수 ( Triads )
+
+인수가 3개인 함수는 인수가 2개인 함수보다 훨씬 더 이해하기 어렵습니다.
+순서, 주춤, 무시로 야기되는 문제가 두 배 이상 늘어납니다.
+*assertEquals(msg, expected, actual)* ... now the msg seems to be the expected value.
