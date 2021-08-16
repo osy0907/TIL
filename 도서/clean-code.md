@@ -499,3 +499,26 @@ write(name) => writeField(name)
 assertEquals => assertExpectedEqualsActual
 ```
 
+## 부수 효과를 일으키지 마라! ( Have No Side Effects )
+
+부수 효과는 거짓말입니다. 함수에서 한 가지를 하겠다고 약속하고선 나몰래 다른 것도 하기 때문입니다.
+
+```java
+public class UserValidator {
+	private Cryptographer cryptographer;
+	public boolean checkPassword(String userName, String password) { 
+		User user = UserGateway.findByName(userName);
+		if (user != User.NULL) {
+			String codedPhrase = user.getPhraseEncodedByPassword(); 
+			String phrase = cryptographer.decrypt(codedPhrase, password); 
+			if ("Valid Password".equals(phrase)) {
+				Session.initialize();
+				return true; 
+			}
+		}
+		return false; 
+	}
+}
+```
+```Session.initialize();```는 함수명과 맞지 않는 부수 효과입니다.
+위의 함수명은 checkPasswordAndInitializeSession() 이 더 낫습니다. 하지만 여전히 함수가 '한 가지' 만 한다는 규칙을 위반하기는 합니다. 
