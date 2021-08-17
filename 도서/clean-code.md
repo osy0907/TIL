@@ -522,3 +522,8 @@ public class UserValidator {
 ```
 ```Session.initialize();```는 함수명과 맞지 않는 부수 효과입니다.
 위의 함수명은 checkPasswordAndInitializeSession() 이 더 낫습니다. 하지만 여전히 함수가 '한 가지' 만 한다는 규칙을 위반하기는 합니다. 
+
+## 출력 인수 ( Output Arguments )
+
+OOP로 피해야 합니다. 
+함수에서 상태를 변경해야 한다면 함수가 속한 객체 상태를 변경하는 방식을 택합니다.
