@@ -532,3 +532,30 @@ OOP로 피해야 합니다.
 
 함수는 뭔가를 수행하거나 뭔가에 답하거나 둘 중 하나만 해야 합니다. 둘 다 하면 안됩니다. 객체 상태를 변경하거나 아니면 객체 정보를 반환하거나 둘중 하나 입니다.
 둘 다 하면 혼란을 초래합니다.
+
+
+## Try/Catch 블록 뽑아내기 ( Extract Try/Catch Blocks )
+
+Try/Catch 블록은 원래 추합니다. 코드 구조에 혼란을 일으키며, 정상 동작과 오류 처리 동작을 뒤섞습니다. 그러므로 Try/Catch 블록을 별도 함수로 뽑아내는 편이 좋습니다. 
+
+```java
+public void delete(Page page) {
+    try {
+        deletePageAndAllReferences(page);
+    } catch (Exception e) {
+        logError(e);
+    }
+}
+
+private void deletePageAndAllReferences(Page page) throws Exception {
+        deletePage(page);
+        registry.deleteReference(page.name);
+        configKyes.deleteKey(page.name.makeKey());
+}
+
+private void logError(Exception e) {
+        logger.log(e.getMessage());
+}
+```
+
+정상 동작과 오류 처리 동작을 분리하면 코드를 이해하고 수정하기 쉬워집니다.
