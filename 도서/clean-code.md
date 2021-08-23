@@ -533,6 +533,38 @@ OOP로 피해야 합니다.
 함수는 뭔가를 수행하거나 뭔가에 답하거나 둘 중 하나만 해야 합니다. 둘 다 하면 안됩니다. 객체 상태를 변경하거나 아니면 객체 정보를 반환하거나 둘중 하나 입니다.
 둘 다 하면 혼란을 초래합니다.
 
+## 오류 코드보다 예외를 사용하라 ( Prefer Exceptions to Returning Error Codes )
+
+명령 함수에서 오류 코드를 반환하는 방식은 명령/조회 분리 규칙을 미묘하게 위반합니다. 
+
+```java
+if (deletePage(page) == E_OK) {
+	if (registry.deleteReference(page.name) == E_OK) {
+		if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
+			logger.log("page deleted");
+		} else {
+			logger.log("configKey not deleted");
+		}
+	} else {
+		logger.log("deleteReference from registry failed"); 
+	} 
+} else {
+	logger.log("delete failed"); return E_ERROR;
+}
+```
+위 코드는 동사/형용사 혼란을 일으키지 않는 대신 여러 단계로 중첩되는 코드를 야기합니다. 오류 코드를 반환하면 호출자는 오류 코드를 곧바로 처리해야 한다는 문제에 부딪힙니다.
+
+```java
+try {
+    deletePage(page);
+    registry.deleteReference(page.name);
+    configKeys.deleteKey(page.name.makeKey());
+} catch (Exception e) {
+    logError(e);
+}
+
+```
+반면 오류 코드 대신 예외를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해집니다.
 
 ## Try/Catch 블록 뽑아내기 ( Extract Try/Catch Blocks )
 
@@ -560,6 +592,30 @@ private void logError(Exception e) {
 
 정상 동작과 오류 처리 동작을 분리하면 코드를 이해하고 수정하기 쉬워집니다.
 
+## 오류 처리도 한 가지 작업이다. ( Error Handling Is One Thing )
+
+함수는 '한 가지' 작업만 해야 합니다. 오류 처리도 '한 가지' 작업에 속합니다. 그러므로 오류를 처리하는 함수는 오류만 처리해야 마땅합니다.
+
+## Error.java 의존성 자석 ( The Error.java Dependency Magnet )
+
+오류 코드를 반환한다는 이야기는, 클래스든 열거형 변수든, 어디선가 오류 코드를 정의한다는 뜻입니다.
+
+```java
+public enum Error { 
+	OK,
+	INVALID,
+	NO_SUCH,
+	LOCKED,
+	OUT_OF_RESOURCES, 	
+	WAITING_FOR_EVENT;
+}
+```
+
+위와 같은 클래스는 의존성 자석입니다. Error enum 이 변한다면 Error enum 을 사용하는 클래스 전부를 다시 컴파일하고 다시 배치해야합니다. 그래서 Error 클래스 변경이 어려워집니다.
+
+오류 코드 대신 예외를 사용하면 새 예외는 Exception 클래스에서 파생됩니다. 따라서 재컴파일/재배치 없이도 새 예외 클래스를 추가할 수 있습니다.
+
+
 ## 반복하지 마라 ( Don’t Repeat Yourself )
 
 중복은 소프트웨어의 모든 악의 근원일 수 있습니다.
@@ -584,7 +640,7 @@ private void logError(Exception e) {
 ## 결론 ( Conclusion )
 
 모든 시스템은 특정 응용 분야 시스템을 기술할 목적으로 프로그래머가 설계한 도메인 특화 언어 (Domain Specific Language) 로 만들어집니다.
-함수는 그 언어에서 동싸며, 클래스는 명사입니다.
+함수는 그 언어에서 동사며, 클래스는 명사입니다.
 
 대가(master) 프로그래머는 시스템을(구현할) 프로그램이 아니라 (풀어갈) 이야기로 여깁니다. 프로그래밍 언어라는 수단을 사용해 좀 더 풍부하고 좀 더 표현력이 강한 언어를 만들어 이야기를 풀어갑니다.
 시스템에서 발생하는 모든 동작을 설명하는 함수 계층이 바로 그언어에 속합니다.
