@@ -656,4 +656,7 @@ public enum Error {
 코드는 변화하고 진화합니다. 일부가 여기서 저기로 옮겨지기도 합니다. 조각이 나뉘고 갈라지고 합쳐지면서 괴물로 변하기도 합니다.
 불행하게도 주석이 언제나 코드를 따라가지 않습니다. 따라가지 못합니다. 주석이 코드에서 분리되어 점점 더 부정확한 고아로 변하는 사례가 너무도 흔합니다.
 
+## 주석은 잘못된 코드를 보완하지 않습니다 ( Comments Do Not Make Up for Bad Code )
+
+"Ooh, I would better comment that!" => No! You would be better clean it!
 
