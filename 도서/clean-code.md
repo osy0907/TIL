@@ -660,3 +660,6 @@ public enum Error {
 
 "Ooh, I would better comment that!" => No! You would be better clean it!
 
+## 좋은 주석 ( Good Comments )
+
+진정으로 좋은 댓글은 쓰지 않을 방법을 찾는 것 입니다.
