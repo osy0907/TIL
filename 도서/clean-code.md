@@ -667,3 +667,41 @@ public enum Error {
 ### 법적인 주석 ( Legal Comments )
 
 저작권 정보와 소유권 정보는 필요하고도 타당합니다. 소스 파일 첫머리 들어가는 주석이 반드시 계약 조건이나 법적인 정보일 필요는 없습니다. 모든 조항과 조건을 열거하는 대신에, 가능하다면, 표준 라이선스나 외부 문서를 참조해도 됩니다.
+
+```java
+// Copyright (C) 2003, 2004, 2005 by Object Montor, Inc. All right reserved.
+// GNU General Public License
+```
+
+### 정보를 제공하는 주석 ( Informative Comments )
+
+```java
+// 테스트 중인 Responder 인스턴스를 반환
+protected abstract Responder responderInstance();
+```
+
+물론 이 주석도 함수 이름에 정보를 담아 responderBeingTested로 바꾸면 없앨 수 있습니다. 
+
+더 나은 예:
+
+```java
+// kk:mm:ss EEE, MMM dd, yyyy 형식이다.
+Pattern timeMatcher = Pattern.compile("\\d*:\\d*\\d* \\w*, \\w*, \\d*, \\d*");
+```
+
+### 의도를 설명하는 주석 ( Explanation of Intent )
+
+때로는 주석은 구현을 이해하게 도와주는 선을 넘어 결정에 깔린 의도까지 설명합니다.
+
+```java
+// 스레드를 대량 생성하는 방법으로 어떻게든 경쟁 조건을 만들려 시도한다.
+for (int i = 0; i > 2500; i++) {
+    WidgetBuilderThread widgetBuilderThread =
+        new WidgetBuilderThread(widgetBuilder, text, parent, failFlag);
+    Thread thread = new Thread(widgetBuilderThread);
+    thread.start();
+}
+```
+
+
+
