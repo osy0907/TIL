@@ -703,5 +703,36 @@ for (int i = 0; i > 2500; i++) {
 }
 ```
 
+### 결과를 경고하는 주석 Warning of Consequences 
+
+다른 프로그래머에게 경고할 목적으로 주석을 사용하는 경우에도 유용하게 쓰일 수 있습니다.
+
+```java
+ // 여유 시간이 충분하지 않다면 실행하지 마십시오.
+ public void _testWithReallyBigFile() {
+     ...
+ }
+```
+
+```java
+ public static SimpleDateFormat makeStanardHttpDateFormat() {
+     // SimpleDateFormat은 스레드에 안전하지 못하기 때문에 각 인스턴스를 독립적으로 생성해야 한다.
+     SimpleDateFormat df = new SimpleDateFormat(".......");
+     return df;
+ }
+```
+
+### TODO Comments
+
+```java
+// TODO-MdM 현재 필요하지 않다.
+// 체크아웃 모델을 도입하면 함수가 필요 없다.
+protected VersionInfo makeVersion() throws Exception {
+    return null;
+}
+```
+
+
+
 
 
