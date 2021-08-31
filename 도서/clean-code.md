@@ -732,6 +732,21 @@ protected VersionInfo makeVersion() throws Exception {
 }
 ```
 
+### 중요성을 강조하는 주석 ( Ampliﬁcation )
+
+```java
+String listItemContent = match.group(3).trim();
+// 여기서 trim은 정말 중요하다. trim 함수는 문자열에서 시작 공백을 제거한다.
+// 문자열에 시작 공백이 있으면 다른 문자열로 인식되기 때문이다.
+new ListItemWidget(this, listItemContent, this.level + 1);
+return buildList(text.substring(match.end()));String listItemContent = match.group(3).trim();
+```
+
+### 공개 API 에서 Javadocs ( Javadocs in Public APIs )
+
+설명이 잘 된 공개 API 는 참으로 유용하고 만족스럽습니다. 표준 자바 라이브러리에서 사용한 Javadocs 가 좋은 예시 입니다.
+하지만 이 장에서 제시하는 나머지 충고도 명심하기 바랍니다. 여느 주석과 마찬가지로 Javadocs 역시 독자를 오도하거나, 잘못 위치하거나, 그릇된 정보를 전달할 가능성이 존재합니다.
+
 
 
 
