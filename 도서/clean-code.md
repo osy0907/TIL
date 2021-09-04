@@ -747,6 +747,26 @@ return buildList(text.substring(match.end()));String listItemContent = match.gro
 설명이 잘 된 공개 API 는 참으로 유용하고 만족스럽습니다. 표준 자바 라이브러리에서 사용한 Javadocs 가 좋은 예시 입니다.
 하지만 이 장에서 제시하는 나머지 충고도 명심하기 바랍니다. 여느 주석과 마찬가지로 Javadocs 역시 독자를 오도하거나, 잘못 위치하거나, 그릇된 정보를 전달할 가능성이 존재합니다.
 
+## 나쁜 주석 ( Bad Comments )
+
+### 주절거리는 주석 ( Mumbling )
+
+```java
+public void loadProperties() {
+    try {
+        String propertiesPath = propertiesLocation + "/" + PROPERTIES_FILE;
+        FileInputStream propertiesStream = new FileInputStream(propertiesPath);
+        loadedProperties.load(propertiesStream);
+    } catch (IOException e) {
+        // 속성 파일이 없다면 기본값을 모두 메모리로 읽어 들였다는 의미다.
+    }
+}
+```
+
+catch 블록에 있는 주석은 저자에게야 의미가 있겠지만 다른 사람들에게는 전해지지 않습니다. 저 주석의 의미를 알아내려면 다른 코드를 뒤져보는 수밖에 없다. 이해가 안되어 다른 모듈까지 뒤져야 하는 주석은 제대로 된 주석이 아닙니다.
+
+
+
 
 
 
