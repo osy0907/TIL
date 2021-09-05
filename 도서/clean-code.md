@@ -765,6 +765,29 @@ public void loadProperties() {
 
 catch 블록에 있는 주석은 저자에게야 의미가 있겠지만 다른 사람들에게는 전해지지 않습니다. 저 주석의 의미를 알아내려면 다른 코드를 뒤져보는 수밖에 없다. 이해가 안되어 다른 모듈까지 뒤져야 하는 주석은 제대로 된 주석이 아닙니다.
 
+### 같은 이야기를 중복하는 주석 ( Redundant Comments ) 
+
+코드 내용을 그대로 중복하는 주석이 있습니다. 전혀 필요없습니다.
+
+```java
+// this.closed가 true일 때 반환되는 유틸리티 메서드다.
+// 타임아웃에 도달하면 예외를 던진다.
+public synchronized void waitForClose(final long timeoutMillis) throws Exception {
+    if (!closed) {
+        wait(timeoutMillis);
+        if (!closed) {
+            throw new Exception("MockResponseSender could not be closed");
+        }
+    }
+}
+```
+
+### 오해할 여지가 있는 주석 ( Misleading Comments )
+
+위 코드를 다시 봅니다. 중복이 많으면서도 오해할 여지가 살짝 있습니다.
+this.closed 가 true 로 변하는 순간에 메서드는 반환되지 않습니다.
+this.closed 가 true 여야 메서드는 반환됩니다.
+아니면 무조건 타임아웃을 기다립니다 this.closed 가 그래도 true 가 아니면 예외를 던집니다. 주석에 담긴 ‘살짝 잘못된 정보’로 인해 어느 프로그래머가 경솔하게 함수를 호출해 자기 코드가 아주 느려진 이유를 못찾게 되는 것 입니다.
 
 
 
