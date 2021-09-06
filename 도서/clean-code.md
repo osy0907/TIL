@@ -795,6 +795,23 @@ this.closed 가 true 여야 메서드는 반환됩니다.
 이런 주석은 코드를 복잡하게 만들며, 거짓말을 퍼뜨리고, 혼동과 무질서를 초래합니다.
 아래와 같은 주석은 아무 가치도 없습니다.
 
+```java
+/**
+ *
+ * @param title CD 제목
+ * @param author CD 저자
+ * @param tracks CD 트랙 숫자
+ * @param durationInMinutes CD 길이(단위: 분)
+ */
+public void addCD(String title, String author, int tracks, int durationInMinutes) {
+    CD cd = new CD();
+    cd.title = title;
+    cd.author = author;
+    cd.tracks = tracks;
+    cd.duration = durationInMinutes;
+    cdList.add(cd);
+}
+```
 
 
 
