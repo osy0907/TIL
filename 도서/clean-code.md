@@ -813,6 +813,27 @@ public void addCD(String title, String author, int tracks, int durationInMinutes
 }
 ```
 
+### 이력을 기록하는 주석 ( Journal Comments )
+
+지금은 소스 코드 관리 시스템이 있으니 전혀 필요없습니다.
+```java
+* 변경 이력 (11-Oct-2001부터)
+* ------------------------------------------------
+* 11-Oct-2001 : 클래스를 다시 정리하고 새로운 패키징
+* 05-Nov-2001: getDescription() 메소드 추가
+* 이하 생략
+```
+
+### 있으나 마나한 주석 ( Noise Comments ) 
+
+```java
+/*
+ * 기본 생성자
+ */
+protected AnnualDateRule() {
+
+}
+```
 
 
 
