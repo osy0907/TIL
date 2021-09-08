@@ -835,6 +835,21 @@ protected AnnualDateRule() {
 }
 ```
 
+### 함수나 변수로 표현할 수 있다면 주석을 달지 마라 ( Don’t Use a Comment When You Can Use a Function or a Variable )
+
+```java
+// 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
+if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
+```
+
+주석을 제거하고 다시 표현하면 다음과 같습니다.
+
+```java
+ArrayList moduleDependencies = smodule.getDependSubSystems();
+String ourSubSystem = subSysMod.getSubSystem();
+if (moduleDependees.contains(ourSubSystem))
+```
+
 
 
 
