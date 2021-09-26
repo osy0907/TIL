@@ -1,3 +1,5 @@
+>Robert C. Martin의 [Clean Code]를 공부하며 기록한 내용 입니다.
+
 # Clean Code
 Notes on the book Clean Code - A Handbook of Agile Software Craftsmanship by Robert C. Martin
 
