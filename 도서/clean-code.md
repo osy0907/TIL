@@ -974,3 +974,70 @@ this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200]
 
 생각 사이는 빈 행을 넣어 분리해야 마땅합니다.
 빈 행은 새로운 개념을 시작한다는 시각적 단서입니다.
+
+### 세로 밀집도 ( Vertical Density )
+
+서로 밀접한 코드 행은 세로로 가까이 놓여야 합니다.
+
+### 수직 거리
+
+서로 밀접한 개념은 세로로 가까이 둬야 합니다. 물론 두 개념이 서로 다른 파일에 속한다면 규칙이 통하지 않습니다.
+하지만 타당한 근거가 없으면 서로 밀접한 개념은 한 파일에 속해야 마땅합니다.
+이게 바로 protected 변수를 피해야 하는 이유 중 하나입니다.
+같은 파일에 속할 정도로 밀접한 두 개념은 세로 거리로 연관성을 표현합니다.
+여기서 연관성이란 한 개념을 이해하는 데 다른 개념이 중요한 정도입니다.
+
+#### 변수 선언
+
+변수는 사용하는 위치에서 최대한 가까이 선언한다. 우리가 만든 함수는 매우 짧다.
+
+```java
+// InputStream이 함수 맨 처음에 선언 되어있다.
+
+private static void readPreferences() {
+    InputStream is = null;
+    try {
+        is = new FileInputStream(getPreferencesFile());
+        setPreferences(new Properties(getPreferences()));
+        getPreferences().load(is);
+    } catch (IOException e) {
+        try {
+            if (is != null)
+                is.close();
+        } catch (IOException e1) {
+        }
+    }
+}
+```
+
+```java
+// 루프 제어 변수는 Test each처럼 루프 문 내부에 선언
+
+public int countTestCases() {
+    int count = 0;
+    for (Test each : tests)
+        count += each.countTestCases();
+    return count;
+}
+```
+
+```java
+// 드물지만, 긴 함수에서는 블록 상단 또는 루프 직전에 변수를 선언 할 수도 있다.
+...
+for (XmlTest test : m_suite.getTests()) {
+    TestRunner tr = m_runnerFactory.newTestRunner(this, test);
+    tr.addListener(m_textReporter);
+    m_testRunners.add(tr);
+
+    invoker = tr.getInvoker();
+
+    for (ITestNGMethod m : tr.getBeforeSuiteMethods()) {
+        beforeSuiteMethods.put(m.getMethod(), m);
+    }
+
+    for (ITestNGMethod m : tr.getAfterSuiteMethods()) {
+        afterSuiteMethods.put(m.getMethod(), m);
+    }
+}
+...
+```
