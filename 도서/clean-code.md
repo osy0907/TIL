@@ -979,7 +979,7 @@ this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200]
 
 서로 밀접한 코드 행은 세로로 가까이 놓여야 합니다.
 
-### 수직 거리
+### 수직 거리 ( Vertical Distance )
 
 서로 밀접한 개념은 세로로 가까이 둬야 합니다. 물론 두 개념이 서로 다른 파일에 속한다면 규칙이 통하지 않습니다.
 하지만 타당한 근거가 없으면 서로 밀접한 개념은 한 파일에 속해야 마땅합니다.
@@ -987,7 +987,7 @@ this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200]
 같은 파일에 속할 정도로 밀접한 두 개념은 세로 거리로 연관성을 표현합니다.
 여기서 연관성이란 한 개념을 이해하는 데 다른 개념이 중요한 정도입니다.
 
-#### 변수 선언
+#### 변수 선언 ( Variable declaration )
 
 변수는 사용하는 위치에서 최대한 가까이 선언한다. 우리가 만든 함수는 매우 짧다.
 
@@ -1040,4 +1040,71 @@ for (XmlTest test : m_suite.getTests()) {
     }
 }
 ...
+```
+
+#### 인스턴스 변수 ( Instance variables )
+
+- 변수를 선언하는 위치는 잘 알려진 위치여야 합니다.
+  - 클래스 맨 처음에 선언(java), 클래스 마지막에 선언(c/c++, scisors rule)
+- Method 중간에 숨겨두면 찾기 어려워집니다.
+
+#### 종속 함수 ( Dependent functions )
+
+- 한 함수가 다른 함수를 호출한다면 두 함수는 세로로 가까이 배치합니다.
+- 가능하다면 호출하는 함수를 호출되는 함수보다 먼저 배치합니다.
+  - 코드가 자연스럽게 읽힘(높은 추상화 -> 낮은 추상화)
+  - 이 규칙이 일관적으로 적용되면 독자는 방금 호출된 함수가 곧 정의될 거라 예측할 수 있습니다.
+
+```java
+  public class WikiPageResponder implements SecureResponder { 
+      
+      protected WikiPage page;
+      protected PageData pageData;
+      protected String pageTitle;
+      protected Request request; 
+      protected PageCrawler crawler;
+
+      public Response makeResponse(FitNesseContext context, Request request) throws Exception {
+          String pageName = getPageNameOrDefault(request, "FrontPage");
+          loadPage(pageName, context); 
+          if (page == null)
+              return notFoundResponse(context, request); 
+          else
+              return makePageResponse(context); 
+      }
+
+      private String getPageNameOrDefault(Request request, String defaultPageName) {
+          String pageName = request.getResource(); 
+          if (StringUtil.isBlank(pageName))
+              pageName = defaultPageName;
+
+          return pageName; 
+      }
+
+      protected void loadPage(String resource, FitNesseContext context)
+          throws Exception {
+          WikiPagePath path = PathParser.parse(resource);
+          crawler = context.root.getPageCrawler();
+          crawler.setDeadEndStrategy(new VirtualEnabledPageCrawler()); 
+          page = crawler.getPage(context.root, path);
+          if (page != null)
+              pageData = page.getData();
+      }
+
+      private Response notFoundResponse(FitNesseContext context, Request request)
+          throws Exception {
+          return new NotFoundResponder().makeResponse(context, request);
+      }
+
+      private SimpleResponse makePageResponse(FitNesseContext context)
+          throws Exception {
+          pageTitle = PathParser.render(crawler.getFullPath(page)); 
+          String html = makeHtml(context);
+
+          SimpleResponse response = new SimpleResponse(); 
+          response.setMaxAge(0); 
+          response.setContent(html);
+          return response;
+      } 
+  ...
 ```
